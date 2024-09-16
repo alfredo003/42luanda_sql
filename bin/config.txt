@@ -1,4 +1,1 @@
-oooooo.sql
-estudantes.sql
-consultas.sql
-escola.sql
+alunos.sql

@@ -6,6 +6,7 @@ SRC = \
 	./src/main.c \
 	./src/database.c \
 	./src/checker_comands.c \
+	./src/linked_list.c \
 	./src/util.c \
 
 CFLAGS = -Wall -Wextra -Werror

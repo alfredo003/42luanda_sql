@@ -26,7 +26,7 @@ void create_database(char *name_database)
 	FILE *check_file = fopen(filepath, "r");
 	  if (check_file != NULL) {
 		fclose(check_file);
-		printf("\33[0;41mError: Database %s already exist!\n", name_database);
+		printf("\33[0;41mError: Database %s already exist!\33[0m\n", name_database);
 		return;
 	    }
 	    
@@ -46,36 +46,33 @@ void create_database(char *name_database)
 	
 }
 
-
-Node* create_node(char *data) {
-    Node *new_node = (Node*)malloc(sizeof(Node));
-    if (new_node == NULL) {
-        printf("Erro ao alocar memória\n");
-        exit(1);
-    }
-    strncpy(new_node->data, data, MAX_LINE_LENGTH);
-    new_node->next = NULL;
-    return new_node;
-}
- 
-void append(Node **head, char *data) {
-    Node *new_node = create_node(data);
-    if (*head == NULL) {
-        *head = new_node;
-    } else {
-        Node *temp = *head;
-        while (temp->next != NULL) {
-            temp = temp->next;
+void drop_database(char *name_database)
+{
+	char *dir = "bin/database/";
+	char *typefile = ".sql";
+	char filepath_dir[256];
+	char filepath[256];
+	
+    	snprintf(filepath_dir, sizeof(filepath_dir), "%s%s", dir, name_database);
+	snprintf(filepath, sizeof(filepath), "%s%s", filepath_dir,typefile);
+	
+	if(remove(filepath) == 0)
+	{
+		
+	  	system("clear");
+		printf("\33[0;42mdatabase %s drop with success!.\33[0m\n", name_database);
+  	} else {
+  	  	system("clear");
+		printf("Erro : database not drop!.\n");
         }
-        temp->next = new_node;
-    }
+	
 }
 
 void list_database() {
     char filepath[256] = "bin/config.txt";
     FILE *file = fopen(filepath, "r");
     if (file == NULL) {
-        printf("\33[0;41mErro: Não foi possível abrir o arquivo %s\n", filepath);
+        printf("\33[0;41mErro: Não foi possível abrir o arquivo \33[0m%s\n", filepath);
         return;
     }
 

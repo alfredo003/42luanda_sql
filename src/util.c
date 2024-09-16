@@ -3,9 +3,7 @@
 
 void menu()
 {
-	printf("+==========================+\n");
-	printf("\t42Luanda SQL:\n");
-	printf("+==========================+\n");
+	printf("42LuandaSQL> ");
 	
 	
 }

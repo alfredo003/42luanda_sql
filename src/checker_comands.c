@@ -8,12 +8,8 @@ void checker_comands(char **keywords)
 		{
 			create_database(keywords[2]);
 		}
-		else if (strcmp(keywords[0],"select") == 0)
-		{
-			
-		}
 		else
-			printf("\33[0;41mQuery invalid!");
+			printf("\33[0;41mQuery invalid!\33[0m\n");
 	}
 	else if(strcmp(keywords[0],"show") == 0)
 	{
@@ -22,7 +18,16 @@ void checker_comands(char **keywords)
 			list_database();
 		}
 		else
-			printf("\33[0;41mQuery invalid!");
+			printf("\33[0;41mQuery invalid!\33[0m\n");
+	}
+	else if(strcmp(keywords[0],"drop") == 0)
+	{
+		if(strcmp(keywords[1],"database") == 0)
+		{
+			drop_database(keywords[2]);
+		}
+		else
+			printf("\33[0;41mQuery invalid!\33[0m\n");
 	}
 	else if (strcmp(keywords[0],"use") == 0)
 	{
@@ -35,7 +40,7 @@ void checker_comands(char **keywords)
 			
 		}
 		else
-			printf("\33[0;41mQuery invalid!");
+			printf("\33[0;41mQuery invalid!\33[0m\n");
 	}
 	else if (strcmp(keywords[0],"select") == 0)
 	{
