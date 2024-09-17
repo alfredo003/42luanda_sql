@@ -24,4 +24,5 @@ char *ft_strncpy(char *s1,char *s2 , int size);
 char *ft_strcat(char *dest, char *src);
 Node* create_node(char *data);
 void append(Node **head, char *data);
+FILE *file_config(char *path,char *status);
 #endif

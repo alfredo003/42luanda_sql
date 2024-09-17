@@ -1,16 +1,10 @@
 #include "42luanda_sql.h"
 
+
 void register_database(char *name_database)
 {
-	char filepath[256] = "bin/config.txt";
-	FILE *file = fopen(filepath, "a");
-	    if (file == NULL) {
-		printf("Erro ao abrir o arquivo %s\n", filepath);
-		return;
-	    }
-
-  	  fprintf(file, "%s.sql\n", name_database);
-    
+	FILE *file = file_config("bin/.config","a");
+  	fprintf(file, "%s\n", name_database);
     	fclose(file);
 }
 void create_database(char *name_database)
@@ -48,7 +42,16 @@ void create_database(char *name_database)
 
 void drop_database(char *name_database)
 {
-	char *dir = "bin/database/";
+    Node *temp = head;
+    while (temp != NULL)
+    {
+    	 
+        printf("%s",temp->data);
+        temp = temp->next;
+    }
+    
+    printf("\n%s\n",name_database);
+	/*char *dir = "bin/database/";
 	char *typefile = ".sql";
 	char filepath_dir[256];
 	char filepath[256];
@@ -64,19 +67,15 @@ void drop_database(char *name_database)
   	} else {
   	  	system("clear");
 		printf("Erro : database not drop!.\n");
-        }
+        }*/
+	
 	
 }
 
-void list_database() {
-    char filepath[256] = "bin/config.txt";
-    FILE *file = fopen(filepath, "r");
-    if (file == NULL) {
-        printf("\33[0;41mErro: Não foi possível abrir o arquivo \33[0m%s\n", filepath);
-        return;
-    }
-
-    Node *head = NULL;
+void list_database()
+{
+   FILE * file = file_config("bin/.config","r");
+     Node *head = NULL;
     char line[MAX_LINE_LENGTH];
 
    
@@ -87,20 +86,22 @@ void list_database() {
     }
 
     fclose(file);
-    
+ 
     Node *temp = head;
      system("clear");
      	printf("+-----------------------+\n");
      	printf("|\tDATABASE\t|\n");
      	printf("+-----------------------+\n");
-    while (temp != NULL) {
-        printf("|\t%s\t|\n", temp->data);
+    while (temp != NULL)
+    {
+        printf("|\t%s\t\t|\n", temp->data);
         temp = temp->next;
     }
       printf("+-----------------------+\n");
 
     temp = head;
-    while (temp != NULL) {
+    while (temp != NULL)
+    {
         Node *next = temp->next;
         free(temp);
         temp = next;

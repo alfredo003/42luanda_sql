@@ -1,2 +1,0 @@
-alunos.sql
-alfredo.sql
