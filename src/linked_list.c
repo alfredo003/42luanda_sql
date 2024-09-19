@@ -26,5 +26,25 @@ void append(Node **head, char *data)
     }
 }
 
+void delete_list(Node **head,const char *data_to_delete)
+{
+	Node *temp = *head;
+    Node *prev = NULL;
+
+    while (temp != NULL && strcmp(temp->data, data_to_delete) != 0) {
+        prev = temp;
+        temp = temp->next;
+    }
+
+    if (temp == NULL) return; // Data not found
+
+    if (prev == NULL) {
+        *head = temp->next;
+    } else {
+        prev->next = temp->next;
+    }
+
+    free(temp);
+}
 
 

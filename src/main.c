@@ -10,7 +10,7 @@ int main(void)
 {
 	char query[100];
 	char **keywords;
-		
+	system("clear");	
 	while(1)
 	{
 	menu();

@@ -7,6 +7,7 @@ void register_database(char *name_database)
   	fprintf(file, "%s\n", name_database);
     	fclose(file);
 }
+
 void create_database(char *name_database)
 {
 	char *dir = "bin/database/";
@@ -40,36 +41,57 @@ void create_database(char *name_database)
 	
 }
 
-void drop_database(char *name_database)
-{
-    Node *temp = head;
-    while (temp != NULL)
-    {
-    	 
-        printf("%s",temp->data);
-        temp = temp->next;
+void drop_database(const char *name_database) {
+    FILE *file = fopen("bin/.config", "r");
+    if (!file) {
+        perror("Failed to open file");
+        return;
     }
+
+    Node *head = NULL;
+    char line[MAX_LINE_LENGTH];
     
-    printf("\n%s\n",name_database);
-	/*char *dir = "bin/database/";
+    // Read the file and store lines in the linked list
+    while (fgets(line, sizeof(line), file)) {
+        line[strcspn(line, "\n")] = 0; // Remove newline character
+        append(&head, line);
+    }
+    fclose(file);
+
+    // Delete the specified node
+    delete_list(&head, name_database);
+
+	char *dir = "bin/database/";
 	char *typefile = ".sql";
 	char filepath_dir[256];
 	char filepath[256];
 	
     	snprintf(filepath_dir, sizeof(filepath_dir), "%s%s", dir, name_database);
 	snprintf(filepath, sizeof(filepath), "%s%s", filepath_dir,typefile);
-	
-	if(remove(filepath) == 0)
-	{
-		
-	  	system("clear");
-		printf("\33[0;42mdatabase %s drop with success!.\33[0m\n", name_database);
-  	} else {
-  	  	system("clear");
-		printf("Erro : database not drop!.\n");
-        }*/
-	
-	
+	remove(filepath);
+    // Write the updated list back to the file
+    file = fopen("bin/.config", "w");
+    if (!file) {
+        perror("Failed to open file");
+        return;
+    }
+
+    Node *temp = head;
+    while (temp != NULL) {
+        fprintf(file, "%s\n", temp->data);
+        temp = temp->next;
+    }
+
+    fclose(file);
+
+    // Clean up memory
+    while (head != NULL) {
+        Node *temp = head;
+        head = head->next;
+        free(temp);
+    }
+
+    printf("Database entry '%s' removed successfully.\n", name_database);
 }
 
 void list_database()
