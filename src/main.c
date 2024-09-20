@@ -1,5 +1,7 @@
 #include "42luanda_sql.h"
 
+char *name_data = NULL;
+
 char **verify_keyword(char *query)
 {
 	toLowerCase(query);
@@ -13,7 +15,7 @@ int main(void)
 	system("clear");	
 	while(1)
 	{
-	menu();
+	menu(name_data);
 
 		if(fgets(query, sizeof(query),stdin) != NULL)
 		{
@@ -25,7 +27,7 @@ int main(void)
 			
 			keywords = verify_keyword(query);
 
-			checker_comands(keywords);
+			checker_comands(keywords,&name_data);
 		}
 		else
 		{

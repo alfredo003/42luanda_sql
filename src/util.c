@@ -1,11 +1,12 @@
 #include "42luanda_sql.h"
 
 
-void menu()
+void menu(char *name)
 {
-	printf("42LuandaSQL> ");
-	
-	
+	if(name != NULL)
+		printf("42LuandaSQL / \33[0;42m%s\33[0m>",name);
+	else
+		printf("42LuandaSQL>");
 }
 void toLowerCase(char *str) {
     while (*str) {          

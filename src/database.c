@@ -41,24 +41,10 @@ void create_database(char *name_database)
 	
 }
 
-void drop_database(const char *name_database) {
-    FILE *file = fopen("bin/.config", "r");
-    if (!file) {
-        perror("Failed to open file");
-        return;
-    }
-
+void drop_database(const char *name_database)
+{
     Node *head = NULL;
-    char line[MAX_LINE_LENGTH];
-    
-    // Read the file and store lines in the linked list
-    while (fgets(line, sizeof(line), file)) {
-        line[strcspn(line, "\n")] = 0; // Remove newline character
-        append(&head, line);
-    }
-    fclose(file);
-
-    // Delete the specified node
+    read_file("bin/.config",&head);
     delete_list(&head, name_database);
 
 	char *dir = "bin/database/";
@@ -69,8 +55,8 @@ void drop_database(const char *name_database) {
     	snprintf(filepath_dir, sizeof(filepath_dir), "%s%s", dir, name_database);
 	snprintf(filepath, sizeof(filepath), "%s%s", filepath_dir,typefile);
 	remove(filepath);
-    // Write the updated list back to the file
-    file = fopen("bin/.config", "w");
+     
+   FILE * file = fopen("bin/.config", "w");
     if (!file) {
         perror("Failed to open file");
         return;
@@ -84,31 +70,19 @@ void drop_database(const char *name_database) {
 
     fclose(file);
 
-    // Clean up memory
     while (head != NULL) {
         Node *temp = head;
         head = head->next;
         free(temp);
     }
-
-    printf("Database entry '%s' removed successfully.\n", name_database);
+ 	system("clear");
+    printf("\33[0;41mDatabase entry '%s' removed.!\33[0m\n", name_database);
 }
 
 void list_database()
 {
-   FILE * file = file_config("bin/.config","r");
-     Node *head = NULL;
-    char line[MAX_LINE_LENGTH];
-
-   
-    while (fgets(line, sizeof(line), file))
-    {
-        line[strcspn(line, "\n")] = 0;
-        append(&head, line);
-    }
-
-    fclose(file);
- 
+    Node *head = NULL;
+   read_file("bin/.config",&head);
     Node *temp = head;
      system("clear");
      	printf("+-----------------------+\n");

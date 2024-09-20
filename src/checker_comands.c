@@ -1,6 +1,6 @@
 #include "42luanda_sql.h"
 
-void checker_comands(char **keywords)
+void checker_comands(char **keywords,char **name_data)
 {
 	if(strcmp(keywords[0],"create") == 0)
 	{
@@ -33,7 +33,8 @@ void checker_comands(char **keywords)
 	{
 		if(strcmp(keywords[1],"database") == 0)
 		{
-			 printf("dddddd");
+			system("clear");
+			 *name_data = keywords[2];
 		}
 		else if (strcmp(keywords[0],"select") == 0)
 		{
