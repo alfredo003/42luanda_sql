@@ -41,20 +41,16 @@ void checker_comands(char **keywords,char **name_data)
 	}
 	else if (strcmp(keywords[0],"select") == 0)
 	{
-		if(!name_data)
+		if(keywords[1][0] == '*')
 		{
-			if(keywords[1][0] == '*')
+			if(strcmp(keywords[3],name_data[0]) == 0)
 			{
-				if(keywords[2] == name_data[0])
-				{
-					printf("funcionou");
-				}
-			
-			}else
-			{
-				printf("eooooooooooooo");
-			}
+				printf("%s\n",name_data[0]);
+			} 
+			return;
 		}
+		else
+			printf("\33[0;41mQuery invalid!\33[0m\n");
 	}  
 	else if (strcmp(keywords[0],"clear") == 0)
 	{
